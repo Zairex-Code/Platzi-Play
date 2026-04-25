@@ -3,6 +3,7 @@ package platzi.play;
 import platzi.play.Platform.User;
 import platzi.play.content.Movie;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
@@ -16,7 +17,7 @@ public class Main {
         movie.description =
                 "is a critically acclaimed epic science fiction film directed by Christopher Nolan, following a team of astronauts who travel through a wormhole near Saturn in search of a new home for humanity as Earth faces extinction from catastrophic blight. The film is known for its scientifically grounded, often emotionally charged, exploration of time dilation, love, and survival, featuring a notable, complex plot.";
         movie.genere = "Suspense";
-        movie.realiseYear = 2014;
+        movie.realiseYear = LocalDate.of(2024,02, 29);
         movie.duration = 2.4;
         movie.rating = 4.2;
         movie.rate(3.1);
@@ -30,11 +31,15 @@ public class Main {
         user.nationality = "Colombian";
         user.city = "Soledad";
         user.phone = 956146471;
+        user.registeredDate = LocalDate.now();
 
         movie.play();
         user.watch(movie.title);
-        
-        System.out.println(movie.getTechnicalSpecification());
+        movie.getTechnicalSpecification();
+        user.getRegisteredDate();
+
+
+
 
 
 
