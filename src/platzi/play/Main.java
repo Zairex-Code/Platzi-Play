@@ -1,5 +1,6 @@
 package platzi.play;
 
+import platzi.play.Platform.User;
 import platzi.play.content.Movie;
 
 import java.util.Scanner;
@@ -18,7 +19,23 @@ public class Main {
         movie.realiseYear = 2014;
         movie.duration = 2.4;
         movie.rating = 4.2;
-        movie.rate(3.1)
+        movie.rate(3.1);
+
+
+
+        User user = new User();
+        user.name = "Dylan";
+        user.lastName = "Florez";
+        user.age = 23;
+        user.nationality = "Colombian";
+        user.city = "Soledad";
+        user.phone = 956146471;
+
+        movie.play();
+        user.watch(movie.title);
+        
+        System.out.println(movie.getTechnicalSpecification());
+
 
 
 
