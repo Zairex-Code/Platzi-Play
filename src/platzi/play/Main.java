@@ -4,6 +4,7 @@ import platzi.play.Platform.User;
 import platzi.play.content.Movie;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
@@ -31,11 +32,12 @@ public class Main {
         user.nationality = "Colombian";
         user.city = "Soledad";
         user.phone = 956146471;
-        user.registeredDate = LocalDate.now();
+        user.registeredDate = LocalDateTime.now();
 
         movie.play();
         user.watch(movie.title);
-        movie.getTechnicalSpecification();
+        System.out.println(movie.getTechnicalSpecification());
+
         user.getRegisteredDate();
 
 
