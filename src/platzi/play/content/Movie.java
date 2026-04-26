@@ -4,15 +4,76 @@ package platzi.play.content;
 import java.time.LocalDate;
 
 public class Movie {
-    public String title;
-    public String description;
-    public String genere;
-    public LocalDate realiseYear;
-    public double duration;
-    public double rating;
-    public boolean available;
+    private String title;
+    private String description;
+    private String genere;
+    private LocalDate realiseYear;
+    private double duration;
+    private double rating;
+    private boolean available;
+
+    public Movie(String title, String description, String genre, LocalDate realiseYear, double duration ){
+        this.title = title;
+        this.description = description;
+        this.genere = genre;
+        this.realiseYear = realiseYear;
+        this.duration = duration;
+        this.rating = 0;
+        this.available = true;
+    }
+
+    // Getters and Setters
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getGenere() {
+        return genere;
+    }
+
+    public LocalDate getRealiseYear() {
+        return realiseYear;
+    }
+
+    public double getDuration() {
+        return duration;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setGenere(String genere) {
+        this.genere = genere;
+    }
+
+    public void setRealiseYear(LocalDate realiseYear) {
+        this.realiseYear = realiseYear;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
 
 
+
+    // Methods
     public void play(){
         System.out.println("playing..." + title);
     }

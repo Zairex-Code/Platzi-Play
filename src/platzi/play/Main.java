@@ -9,9 +9,13 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
+        public static final String PLATFORM_NAME = "Platzi Play 🚀";
+        public static  final String VERSION = "1.0";
+
     static void main(String[] args) {
+
         System.out.println("========================================================================");
-        System.out.println("Hello, This is Platzi Play 🚀");
+        System.out.println(PLATFORM_NAME + "V" + VERSION);
         System.out.println("========================================================================"+"\n");
 
         String movieTitle = ScannerUtil.getText("Insert Title");
@@ -27,33 +31,15 @@ public class Main {
         String userNationality = ScannerUtil.getText("Insert Nationality");
         String userCity = ScannerUtil.getText("Insert city");
         int userPhone = ScannerUtil.getNumber("Insert Phone");
-        LocalDateTime userRegisteredDate= LocalDateTime.now();
+
+        
 
 
-
-
-        Movie movie = new Movie();
-        movie.title= movieTitle;
-        movie.description = movieDescription;
-        movie.genere = movieGenre;
-        movie.realiseYear = movieRealiseYear;
-        movie.duration = movieDuration;
-        movie.rating = movieRating;
-
-
-
-
-        User user = new User();
-        user.name = userName;
-        user.lastName = userLastName;
-        user.age = userAge;
-        user.nationality = userNationality;
-        user.city = userCity;
-        user.phone = userPhone;
-        user.registeredDate = userRegisteredDate;
+        Movie movie = new Movie(movieTitle, movieDescription, movieGenre, movieRealiseYear, movieDuration);
+        User user = new User(userName,userLastName,userAge,userNationality,userCity,userPhone);
 
         movie.play();
-        user.watch(movie.title);
+        user.watch(movie.getTitle());
         System.out.println(movie.getTechnicalSpecification());
 
         user.getRegisteredDate();
@@ -62,29 +48,6 @@ public class Main {
 
 
 
-
-
-
-
-       /*
-        System.out.println("========================================================================");
-
-        System.out.println("Hello, This is Platzi Play 🚀");
-        System.out.println("========================================================================"+"\n");
-        Scanner Scanner = new Scanner(System.in);
-        System.out.println("Insert your name: ");
-        String name = Scanner.nextLine();
-        System.out.println("Insert your age: ");
-        int age = Scanner.nextInt();
-        Scanner.nextLine();
-        System.out.println("Insert your nationality: ");
-        String nationality = Scanner.nextLine();
-        System.out.println("Which city do you live in: ");
-        String city = Scanner.nextLine();
-        System.out.println("Hello " + name + " wellcome to Platzi Play" );
-        System.out.println("Now we'll recommend to you some +" + age + " movies");
-        System.out.println("These are the movies which " + nationality + " loved it");
-       */
 
     }
 
