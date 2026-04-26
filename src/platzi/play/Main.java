@@ -1,6 +1,7 @@
 package platzi.play;
 
 import platzi.play.Platform.User;
+import platzi.play.Util.ScannerUtil;
 import platzi.play.content.Movie;
 
 import java.time.LocalDate;
@@ -13,26 +14,43 @@ public class Main {
         System.out.println("Hello, This is Platzi Play 🚀");
         System.out.println("========================================================================"+"\n");
 
+        String movieTitle = ScannerUtil.getText("Insert Title");
+        String movieDescription = ScannerUtil.getText("Insert Description");
+        String movieGenre = ScannerUtil.getText("Insert genre");
+        LocalDate movieRealiseYear = ScannerUtil.getDate("Insert realise date");
+        double movieDuration = ScannerUtil.getDecimal("Insert Duration");
+        double movieRating = ScannerUtil.getDecimal("Insert rating");
+
+        String userName = ScannerUtil.getText("Inser name");
+        String userLastName = ScannerUtil.getText("Insert last name");
+        int userAge = ScannerUtil.getNumber("Insert Age");
+        String userNationality = ScannerUtil.getText("Insert Nationality");
+        String userCity = ScannerUtil.getText("Insert city");
+        int userPhone = ScannerUtil.getNumber("Insert Phone");
+        LocalDateTime userRegisteredDate= LocalDateTime.now();
+
+
+
+
         Movie movie = new Movie();
-        movie.title= "Interstellar";
-        movie.description =
-                "is a critically acclaimed epic science fiction film directed by Christopher Nolan, following a team of astronauts who travel through a wormhole near Saturn in search of a new home for humanity as Earth faces extinction from catastrophic blight. The film is known for its scientifically grounded, often emotionally charged, exploration of time dilation, love, and survival, featuring a notable, complex plot.";
-        movie.genere = "Suspense";
-        movie.realiseYear = LocalDate.of(2024,02, 29);
-        movie.duration = 2.4;
-        movie.rating = 4.2;
-        movie.rate(3.1);
+        movie.title= movieTitle;
+        movie.description = movieDescription;
+        movie.genere = movieGenre;
+        movie.realiseYear = movieRealiseYear;
+        movie.duration = movieDuration;
+        movie.rating = movieRating;
+
 
 
 
         User user = new User();
-        user.name = "Dylan";
-        user.lastName = "Florez";
-        user.age = 23;
-        user.nationality = "Colombian";
-        user.city = "Soledad";
-        user.phone = 956146471;
-        user.registeredDate = LocalDateTime.now();
+        user.name = userName;
+        user.lastName = userLastName;
+        user.age = userAge;
+        user.nationality = userNationality;
+        user.city = userCity;
+        user.phone = userPhone;
+        user.registeredDate = userRegisteredDate;
 
         movie.play();
         user.watch(movie.title);

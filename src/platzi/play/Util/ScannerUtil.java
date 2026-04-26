@@ -1,5 +1,7 @@
 package platzi.play.Util;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class ScannerUtil {
@@ -22,5 +24,18 @@ public class ScannerUtil {
         double decimal = Scanner.nextDouble();
         Scanner.nextLine();
         return decimal;
+    }
+    public static LocalDate getDate(String message){
+        System.out.println(message + ": ");
+        System.out.println("- Insert realise year: ");
+        int reliseYear = Scanner.nextInt();
+        System.out.println("- Insert realise month: ");
+        int realiseMonth = Scanner.nextInt();
+        System.out.println("- Insert realise day: ");
+        int realiseDay = Scanner.nextInt();
+        LocalDate localDate = LocalDate.of(reliseYear,realiseMonth,realiseDay);
+
+        return localDate;
+
     }
 }
