@@ -5,35 +5,50 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class ScannerUtil {
-    public static Scanner Scanner = new Scanner(System.in);
+    public static final Scanner SCANNER = new Scanner(System.in);
+
 
     public static String getText(String message){
         System.out.println( message + ":");
-        return Scanner.nextLine();
+        return SCANNER.nextLine();
     }
 
     public static int getNumber(String message){
         System.out.println(message + ":");
-        int number = Scanner.nextInt();
-        Scanner.nextLine();
+        while(!SCANNER.hasNextInt()){
+            System.out.println("Invalid option select a valid option:");
+            SCANNER.next();
+        }
+        int number = SCANNER.nextInt();
+        SCANNER.nextLine();
         return number;
     }
 
     public static double getDecimal(String message){
         System.out.println(message + ":");
-        double decimal = Scanner.nextDouble();
-        Scanner.nextLine();
+        while(!SCANNER.hasNextDouble()){
+            System.out.println("Invalid option select a valid option:");
+            SCANNER.next();
+        }
+        double decimal = SCANNER.nextDouble();
+        SCANNER.nextLine();
         return decimal;
     }
     public static LocalDate getDate(String message){
         System.out.println(message + ": ");
         System.out.println("- Insert realise year: ");
-        int reliseYear = Scanner.nextInt();
+        int reliseYear = SCANNER.nextInt();
+//
         System.out.println("- Insert realise month: ");
-        int realiseMonth = Scanner.nextInt();
+        int realiseMonth = SCANNER.nextInt();
+//       }
         System.out.println("- Insert realise day: ");
-        int realiseDay = Scanner.nextInt();
+        int realiseDay = SCANNER.nextInt();
+
+
+//
         LocalDate localDate = LocalDate.of(reliseYear,realiseMonth,realiseDay);
+        System.out.println(localDate);
 
         return localDate;
 
