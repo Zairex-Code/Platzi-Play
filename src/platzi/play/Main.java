@@ -33,6 +33,8 @@ public class Main {
 
 
         Platform platform = new Platform(PLATFORM_NAME);
+        loadMovies(platform);
+        loadUsers(platform);
 
 
         while (true){
@@ -61,17 +63,29 @@ public class Main {
                 }
                 case SHOW_CONTENT ->  platform.showTitlesList();
                 case SEARCH_BY_TITLE -> {
-                    // pending
+                    String title = ScannerUtil.getText("Insert the movie name to search: ");
+                    Movie movie = platform.searchByTitle(title);
+                    if (movie != null){
+                        System.out.println(movie.getTechnicalSpecification());
+                    }else{
+                        System.out.println("Movie doesnt found");
+                    }
                 }
                 case REMOVE -> {
-                    while (true){
-                        platform.showTitlesList();
-                        int option = ScannerUtil.getNumber("Select the movie that you want to remove");
-                        //platform.removeMovie(content[option]);
+                    String title = ScannerUtil.getText("Insert the movie name to remove: ");
+                    Movie movie = platform.searchByTitle(title);
+                    if (movie != null){
+                        String option = ScannerUtil.getText("Are you sure that you want to remove this movie? Y/N :");
+                        if (option.equalsIgnoreCase("y")) {
+                            platform.removeMovie(movie);
+                            System.out.println("Movie removed successfully");
+                        }
+                    }else{
+                        System.out.println("Movie doesnt found");
                     }
                 }
                 case REGISTER_NEW_USER -> {
-                    String userName = ScannerUtil.getText("Inser name");
+                    String userName = ScannerUtil.getText("Insert name");
                     String userLastName = ScannerUtil.getText("Insert last name");
                     int userAge = ScannerUtil.getNumber("Insert Age");
                     String userNationality = ScannerUtil.getText("Insert Nationality");
@@ -89,27 +103,32 @@ public class Main {
         }
 
 
-//
-//
-//        platform.addMovie(movie);
-//
-//
-//        switch ()
-//        movie.play();
-//        user.watch(movie.getTitle());
-//        System.out.println("This platform contain "+platform.getContent().size() + "Movies");
-//        platform.showTitlesList();
-//        platform.removeMovie(movie3);
-//        platform.showTitlesList();
-//
-//        System.out.println(movie.getTechnicalSpecification());
-//
-//        user.getRegisteredDate();
-//
+    }
+    private static void loadMovies(Platform platform){
+            platform.addMovie(new Movie("Shrek", "Un ogro rescata a una princesa para recuperar su pantano.", "Animada", LocalDate.of(2001, 5, 18), 90.0));
+            platform.addMovie(new Movie("Inception", "Un ladrón de sueños busca implantar una idea en un subconsciente.", "Ciencia Ficción", LocalDate.of(2010, 7, 16), 148.0));
+            platform.addMovie(new Movie("Titanic", "Dos jóvenes de distintas clases sociales se enamoran en el famoso barco.", "Drama", LocalDate.of(1997, 12, 19), 195.0));
+            platform.addMovie(new Movie("John Wick", "Un asesino retirado busca venganza por la muerte de su perro.", "Acción", LocalDate.of(2014, 10, 24), 101.0));
+            platform.addMovie(new Movie("El Conjuro", "Investigadores paranormales ayudan a una familia en una granja.", "Terror", LocalDate.of(2013, 7, 19), 112.0));
+            platform.addMovie(new Movie("Coco", "Un niño viaja al mundo de los muertos para descubrir su legado.", "Animada", LocalDate.of(2017, 10, 27), 105.0));
+            platform.addMovie(new Movie("Interstellar", "Exploradores viajan por un agujero de gusano para salvar la humanidad.", "Ciencia Ficción", LocalDate.of(2014, 11, 7), 169.0));
+            platform.addMovie(new Movie("Joker", "Un comediante fallido desciende a la locura en Gotham City.", "Drama", LocalDate.of(2019, 10, 4), 122.0));
+            platform.addMovie(new Movie("Toy Story", "Los juguetes de un niño cobran vida cuando él no está presente.", "Animada", LocalDate.of(1995, 11, 22), 81.0));
+            platform.addMovie(new Movie("Avengers: Endgame", "Los héroes intentan revertir el daño causado por Thanos.", "Acción", LocalDate.of(2019, 4, 26), 181.0));
 
+    }
 
-
-
+    private static void loadUsers(Platform platform){
+        platform.addUser(new User("James", "Miller", 28, "American", "New York", 21255501));
+        platform.addUser(new User("Emily", "Wilson", 34, "British", "London", 20794601));
+        platform.addUser(new User("Oliver", "Brown", 22, "Canadian", "Toronto", 41655502));
+        platform.addUser(new User("Sophie", "Taylor", 45, "Australian", "Sydney", 29212443));
+        platform.addUser(new User("Liam", "Smith", 30, "Irish", "Dublin", 16654321));
+        platform.addUser(new User("Emma", "Johnson", 26, "American", "Los Angeles", 31055503));
+        platform.addUser(new User("Noah", "Davis", 31, "American", "Chicago", 31255504));
+        platform.addUser(new User("Isabella", "White", 29, "British", "Manchester", 16149602));
+        platform.addUser(new User("Lucas", "Anderson", 40, "Canadian", "Vancouver", 60455505));
+        platform.addUser(new User("Mia", "Thompson", 24, "American", "Seattle", 20655506));
 
     }
 

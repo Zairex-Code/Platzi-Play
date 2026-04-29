@@ -78,6 +78,8 @@ public class Movie {
         System.out.println("playing..." + title);
     }
 
+
+
     public String getTechnicalSpecification() {
         return title + " " +realiseYear.getYear() + "\n" +
                 "Genre: " + genere + "\n" +

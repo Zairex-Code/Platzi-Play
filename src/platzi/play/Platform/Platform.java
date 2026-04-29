@@ -27,12 +27,15 @@ public class Platform {
     public void removeUser(User user){
         this.users.remove(user);
     }
+
     public void showUsersList(){
         int counter = 0;
+        System.out.println("All Movies availables: ");
         for (User user : users) {
             ++counter;
             System.out.println(counter + ". "+ user.getName());
         }
+        System.out.println("");
     }
 
     public String getName(){
@@ -52,6 +55,16 @@ public class Platform {
         }
         System.out.println();
     }
+    public Movie searchByTitle(String Title){
+        for (Movie movie: content){
+            if (movie.getTitle().equalsIgnoreCase(Title)){
+                return movie;
+            }
+
+        }
+        return null;
+    }
+
 
 
 
