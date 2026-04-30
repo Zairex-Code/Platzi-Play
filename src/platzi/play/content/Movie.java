@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class Movie {
     private String title;
     private String description;
-    private String genere;
+    private String genre;
     private LocalDate realiseYear;
     private double duration;
     private double rating;
@@ -15,7 +15,7 @@ public class Movie {
     public Movie(String title, String description, String genre, LocalDate realiseYear, double duration ){
         this.title = title;
         this.description = description;
-        this.genere = genre;
+        this.genre = genre;
         this.realiseYear = realiseYear;
         this.duration = duration;
         this.rating = 0;
@@ -31,8 +31,8 @@ public class Movie {
         return description;
     }
 
-    public String getGenere() {
-        return genere;
+    public String getGenre() {
+        return genre;
     }
 
     public LocalDate getRealiseYear() {
@@ -60,7 +60,7 @@ public class Movie {
     }
 
     public void setGenere(String genere) {
-        this.genere = genere;
+        this.genre = genere;
     }
 
     public void setRealiseYear(LocalDate realiseYear) {
@@ -82,7 +82,7 @@ public class Movie {
 
     public String getTechnicalSpecification() {
         return title + " " +realiseYear.getYear() + "\n" +
-                "Genre: " + genere + "\n" +
+                "Genre: " + genre + "\n" +
                 "Rating: "+rating+"/5";
     }
     public void rate(double rating){

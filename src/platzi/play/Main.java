@@ -7,6 +7,7 @@ import platzi.play.content.Movie;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -15,10 +16,11 @@ public class Main {
         public static final int ADD_CONTENT = 1;
         public static final int SHOW_CONTENT = 2;
         public static final int SEARCH_BY_TITLE = 3;
-        public static final int REMOVE = 4;
-        public static final int REGISTER_NEW_USER = 5;
-        public static final int SHOW_ALL_USERS = 6;
-        public static final int EXIT = 7;
+        public static final int SEARCH_BY_GENRE = 4;
+        public static final int REMOVE = 5;
+        public static final int REGISTER_NEW_USER = 6;
+        public static final int SHOW_ALL_USERS = 7;
+        public static final int EXIT = 8;
 
     static void main(String[] args) {
 
@@ -42,10 +44,11 @@ public class Main {
                     1. Add Content
                     2. Show all content
                     3. Search by title
-                    4. Remove
-                    5. Register new user
-                    6. Show all users
-                    7. Exit
+                    4. Search by Genre
+                    5. Remove
+                    6. Register new user
+                    7. Show all users
+                    8. Exit
                     Select One option: 
                     """);
             System.out.println("shose option was : " + shoseOption );
@@ -70,6 +73,17 @@ public class Main {
                     }else{
                         System.out.println("Movie doesnt found");
                     }
+                }
+                case SEARCH_BY_GENRE -> {
+                    String genre = ScannerUtil.getText("Insert the movie genre to search: ");
+                    List<Movie> movieList = platform.searchByGenre(genre);
+                    if (!movieList.isEmpty()) {
+                        System.out.println("Movies list with genre: " + genre);
+                        movieList.forEach(movie -> System.out.println("- " + movie.getTechnicalSpecification()));
+                    } else {
+                        System.out.println("No movies found with genre: " + genre);
+                    }
+
                 }
                 case REMOVE -> {
                     String title = ScannerUtil.getText("Insert the movie name to remove: ");

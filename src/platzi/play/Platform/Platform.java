@@ -49,20 +49,35 @@ public class Platform {
         int counter = 0;
 
         System.out.println("All Movies availables: ");
+
         for (Movie movie : content) {
-            ++counter;
-            System.out.println(counter+". "+movie.getTitle());
-        }
-        System.out.println();
+           ++counter;
+           System.out.println(counter+". "+movie.getTitle());
+      }
+
+
+
     }
     public Movie searchByTitle(String Title){
-        for (Movie movie: content){
-            if (movie.getTitle().equalsIgnoreCase(Title)){
-                return movie;
-            }
+//        for (Movie movie: content){
+//            if (movie.getTitle().equalsIgnoreCase(Title)){
+//                return movie;
+//            }
+//
+//        }
+        //We can do the sale as the before for
+        return content.stream()
+                .filter(content -> content.getTitle().equalsIgnoreCase(Title))
+                .findFirst()
+                .orElse(null);
 
-        }
-        return null;
+
+
+    }
+    public List<Movie> searchByGenre(String genre){
+        return content.stream().
+                filter(movie -> movie.getGenre().equalsIgnoreCase(genre))
+                .toList();
     }
 
 
