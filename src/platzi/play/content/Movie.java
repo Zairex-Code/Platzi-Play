@@ -12,13 +12,13 @@ public class Movie {
     private double rating;
     private boolean available;
 
-    public Movie(String title, String description, String genre, LocalDate realiseYear, double duration ){
+    public Movie(String title, String description, String genre, LocalDate realiseYear, double duration, double rating ){
         this.title = title;
         this.description = description;
         this.genre = genre;
         this.realiseYear = realiseYear;
         this.duration = duration;
-        this.rating = 0;
+        this.rating = rating;
         this.available = true;
     }
 

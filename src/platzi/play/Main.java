@@ -17,10 +17,11 @@ public class Main {
         public static final int SHOW_CONTENT = 2;
         public static final int SEARCH_BY_TITLE = 3;
         public static final int SEARCH_BY_GENRE = 4;
-        public static final int REMOVE = 5;
-        public static final int REGISTER_NEW_USER = 6;
-        public static final int SHOW_ALL_USERS = 7;
-        public static final int EXIT = 8;
+        public static final int GET_POPULAR_MOVIES = 5;
+        public static final int REMOVE = 6;
+        public static final int REGISTER_NEW_USER = 7;
+        public static final int SHOW_ALL_USERS = 8;
+        public static final int EXIT = 9;
 
     static void main(String[] args) {
 
@@ -45,12 +46,13 @@ public class Main {
                     2. Show all content
                     3. Search by title
                     4. Search by Genre
-                    5. Remove
-                    6. Register new user
-                    7. Show all users
-                    8. Exit
-                    Select One option: 
-                    """);
+                    5. get popular movies
+                    6. get very popular movies
+                    6. Remove
+                    7. Register new user
+                    8. Show all users
+                    9. Exit
+                    Select One option""");
             System.out.println("shose option was : " + shoseOption );
             switch (shoseOption){
                 case ADD_CONTENT -> {
@@ -60,7 +62,7 @@ public class Main {
                     LocalDate movieRealiseYear = ScannerUtil.getDate("Insert realise date");
                     double movieDuration = ScannerUtil.getDecimal("Insert Duration");
                     double movieRating = ScannerUtil.getDecimal("Insert rating");
-                    Movie movie = new Movie(movieTitle, movieDescription, movieGenre, movieRealiseYear, movieDuration);
+                    Movie movie = new Movie(movieTitle, movieDescription, movieGenre, movieRealiseYear, movieDuration, movieRating);
                     platform.addMovie(movie);
                     System.out.println("Movie added successfully");
                 }
@@ -84,6 +86,16 @@ public class Main {
                         System.out.println("No movies found with genre: " + genre);
                     }
 
+                }
+                case GET_POPULAR_MOVIES -> {
+
+                    List<Movie> popularMoviesList = platform.getPopularMovies();
+                    if (!popularMoviesList.isEmpty()) {
+                        System.out.println("Popular movies: ");
+                        popularMoviesList.forEach(movie -> System.out.println("- " + movie.getTechnicalSpecification()));
+                    } else {
+                        System.out.println("Nothing to show");
+                    }
                 }
                 case REMOVE -> {
                     String title = ScannerUtil.getText("Insert the movie name to remove: ");
@@ -119,16 +131,16 @@ public class Main {
 
     }
     private static void loadMovies(Platform platform){
-            platform.addMovie(new Movie("Shrek", "Un ogro rescata a una princesa para recuperar su pantano.", "Animada", LocalDate.of(2001, 5, 18), 90.0));
-            platform.addMovie(new Movie("Inception", "Un ladrón de sueños busca implantar una idea en un subconsciente.", "Ciencia Ficción", LocalDate.of(2010, 7, 16), 148.0));
-            platform.addMovie(new Movie("Titanic", "Dos jóvenes de distintas clases sociales se enamoran en el famoso barco.", "Drama", LocalDate.of(1997, 12, 19), 195.0));
-            platform.addMovie(new Movie("John Wick", "Un asesino retirado busca venganza por la muerte de su perro.", "Acción", LocalDate.of(2014, 10, 24), 101.0));
-            platform.addMovie(new Movie("El Conjuro", "Investigadores paranormales ayudan a una familia en una granja.", "Terror", LocalDate.of(2013, 7, 19), 112.0));
-            platform.addMovie(new Movie("Coco", "Un niño viaja al mundo de los muertos para descubrir su legado.", "Animada", LocalDate.of(2017, 10, 27), 105.0));
-            platform.addMovie(new Movie("Interstellar", "Exploradores viajan por un agujero de gusano para salvar la humanidad.", "Ciencia Ficción", LocalDate.of(2014, 11, 7), 169.0));
-            platform.addMovie(new Movie("Joker", "Un comediante fallido desciende a la locura en Gotham City.", "Drama", LocalDate.of(2019, 10, 4), 122.0));
-            platform.addMovie(new Movie("Toy Story", "Los juguetes de un niño cobran vida cuando él no está presente.", "Animada", LocalDate.of(1995, 11, 22), 81.0));
-            platform.addMovie(new Movie("Avengers: Endgame", "Los héroes intentan revertir el daño causado por Thanos.", "Acción", LocalDate.of(2019, 4, 26), 181.0));
+            platform.addMovie(new Movie("Shrek", "Un ogro rescata a una princesa para recuperar su pantano.", "Animada", LocalDate.of(2001, 5, 18), 90.0, 4.2));
+            platform.addMovie(new Movie("Inception", "Un ladrón de sueños busca implantar una idea en un subconsciente.", "Ciencia Ficción", LocalDate.of(2010, 7, 16), 148.0 , 4.6));
+            platform.addMovie(new Movie("Titanic", "Dos jóvenes de distintas clases sociales se enamoran en el famoso barco.", "Drama", LocalDate.of(1997, 12, 19), 195.0 , 3));
+            platform.addMovie(new Movie("John Wick", "Un asesino retirado busca venganza por la muerte de su perro.", "Acción", LocalDate.of(2014, 10, 24), 101.0 , 2));
+            platform.addMovie(new Movie("El Conjuro", "Investigadores paranormales ayudan a una familia en una granja.", "Terror", LocalDate.of(2013, 7, 19), 112.0 , 4.1));
+            platform.addMovie(new Movie("Coco", "Un niño viaja al mundo de los muertos para descubrir su legado.", "Animada", LocalDate.of(2017, 10, 27), 105.0 , 5));
+            platform.addMovie(new Movie("Interstellar", "Exploradores viajan por un agujero de gusano para salvar la humanidad.", "Ciencia Ficción", LocalDate.of(2014, 11, 7), 169.0 , 3.5));
+            platform.addMovie(new Movie("Joker", "Un comediante fallido desciende a la locura en Gotham City.", "Drama", LocalDate.of(2019, 10, 4), 122.0 , 3.6));
+            platform.addMovie(new Movie("Toy Story", "Los juguetes de un niño cobran vida cuando él no está presente.", "Animada", LocalDate.of(1995, 11, 22), 81.0, 4.3));
+            platform.addMovie(new Movie("Avengers: Endgame", "Los héroes intentan revertir el daño causado por Thanos.", "Acción", LocalDate.of(2019, 4, 26), 181.0, 3.8));
 
     }
 

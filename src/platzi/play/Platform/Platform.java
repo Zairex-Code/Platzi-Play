@@ -2,6 +2,7 @@ package platzi.play.Platform;
 
 import platzi.play.content.Movie;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Platform {
@@ -54,9 +55,19 @@ public class Platform {
            ++counter;
            System.out.println(counter+". "+movie.getTitle());
       }
+    }
+    public void getTotalDuration(){
+        double hoursContent = content.stream().mapToDouble(content -> content.getDuration()).sum();
+        System.out.println("🖥" +hoursContent + " of content" );
+    }
 
+    // This function orders all movies from higher to lower
+    public List<Movie> getPopularMovies(){
+        return content.stream().sorted(Comparator.comparingDouble(Movie::getRating).reversed()).toList();
+    }
 
-
+    public List<Movie> getVeryPopularMovie(){
+        return  content.stream().filter(movie -> movie.getRating() > 4).toList();
     }
     public Movie searchByTitle(String Title){
 //        for (Movie movie: content){
