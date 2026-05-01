@@ -24,9 +24,10 @@ public class Main {
         public static final int GET_LONGER_MOVIE = 7;
         public static final int GET_SHORTER_MOVIE = 8;
         public static final int REMOVE = 9;
-        public static final int REGISTER_NEW_USER = 10;
-        public static final int SHOW_ALL_USERS = 11;
-        public static final int EXIT = 12;
+        public static final int PLAY_MOVIE = 10;
+        public static final int REGISTER_NEW_USER = 11;
+        public static final int SHOW_ALL_USERS = 12;
+        public static final int EXIT = 13;
 
     static void main(String[] args) {
 
@@ -56,9 +57,10 @@ public class Main {
                     7. get longer movie
                     8. get shorter movie
                     9. Remove
-                    10. Register new user
-                    11. Show all users
-                    12. Exit
+                    10. Play movie
+                    11. Register new user
+                    12. Show all users
+                    13. Exit
                     Select One option""");
             System.out.println("shose option was : " + shoseOption );
             switch (shoseOption){
@@ -82,7 +84,7 @@ public class Main {
                 }
                 case SHOW_CONTENT ->  {
                     List<ContentSummary> contentSummaryList = platform.getContentSummary();
-                    contentSummaryList.forEach(c -> System.out.println(c));
+                    contentSummaryList.forEach(c -> System.out.println("- "+c.title()));
                 }
                 case SEARCH_BY_TITLE -> {
                     String title = ScannerUtil.getText("Insert the movie name to search: ");
@@ -132,6 +134,25 @@ public class Main {
                     List<Movie> durationMovieList = platform.getShorterMovie();
                     Movie shorterMovie = durationMovieList.stream().findFirst().orElse(null);
                     System.out.println("The shorter movie is: " + shorterMovie.getTechnicalSpecification() +"\n"+ "and its duration is: " + shorterMovie.getDuration() + " min" );
+                }
+                case PLAY_MOVIE -> {
+                    boolean keepAsking = true;
+                    while (keepAsking){
+                        System.out.println("Select the movie that you would like to play:");
+                        List<ContentSummary> contentSummaryList = platform.getContentSummary();
+                        contentSummaryList.forEach(movie -> System.out.println("- "+movie.title()));
+                        String movieSelected = ScannerUtil.getText("Insert the movie title that you would like to play");
+                        Movie movie = platform.searchByTitle(movieSelected.trim());
+                        if (movie != null){
+                            platform.playing(movie);
+                            keepAsking = false;
+                        }else {
+                            System.out.println("Movie doesn't found ");
+                        }
+
+                    }
+
+
                 }
                 case REMOVE -> {
                     String title = ScannerUtil.getText("Insert the movie name to remove: ");

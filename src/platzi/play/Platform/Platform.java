@@ -4,20 +4,21 @@ import platzi.play.Exception.ExistingMovieException;
 import platzi.play.content.ContentSummary;
 import platzi.play.content.Genre;
 import platzi.play.content.Movie;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+
+import java.util.*;
 
 public class Platform {
     private String platformName;
     private List<Movie> content;
     private List<User> users;
+    private Map<Movie,Integer> views;
 
 
     public Platform(String platformName){
         this.platformName = platformName;
         this.content = new ArrayList<>();
         this.users = new ArrayList<>();
+        this.views = new HashMap<>();
     }
     public void addMovie(Movie movie){
         Movie searchMovie = this.searchByTitle(movie.getTitle());
@@ -38,6 +39,9 @@ public class Platform {
     }
     public void removeUser(User user){
         this.users.remove(user);
+    }
+    public Map<Movie, Integer> getViews() {
+        return views;
     }
 
     public void showUsersList(){
@@ -106,17 +110,23 @@ public class Platform {
                 .findFirst()
                 .orElse(null);
 
-
-
     }
     public List<Movie> searchByGenre(Genre genre){
         return content.stream().
                 filter(movie -> movie.getGenre().equals(genre))
                 .toList();
     }
+    public void playing(Movie movie){
+        int currentViews = views.getOrDefault(movie, 0);
+        System.out.println(movie.getTitle() + " has been played " + currentViews + " times");
+        this.counterViews(movie);
+        movie.play();
 
 
-
-
+    }
+    public void counterViews(Movie movie) {
+        int currentViews = views.getOrDefault(movie, 0);
+        views.put(movie, currentViews + 1);
+    }
 
 }
