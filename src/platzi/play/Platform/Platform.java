@@ -1,5 +1,7 @@
 package platzi.play.Platform;
 
+import platzi.play.Exception.ExistingMovieException;
+import platzi.play.content.ContentSummary;
 import platzi.play.content.Genre;
 import platzi.play.content.Movie;
 import java.util.ArrayList;
@@ -18,12 +20,20 @@ public class Platform {
         this.users = new ArrayList<>();
     }
     public void addMovie(Movie movie){
-        this.content.add(movie);
+        Movie searchMovie = this.searchByTitle(movie.getTitle());
+        if (searchMovie != null){
+            throw new ExistingMovieException(movie.getTitle());
+        }else {
+            this.content.add(movie);
+        }
+
+
     }
     public void removeMovie(Movie movie){
         this.content.remove(movie);
     }
     public void addUser(User user){
+
         this.users.add(user);
     }
     public void removeUser(User user){
@@ -56,6 +66,12 @@ public class Platform {
            ++counter;
            System.out.println(counter+". "+movie.getTitle());
       }
+    }
+
+    public List<ContentSummary> getContentSummary(){
+        return content.stream()
+                .map(movie ->new ContentSummary(movie.getTitle(),movie.getDuration(), movie.getGenre()))
+                .toList();
     }
     public void getTotalDuration(){
         double hoursContent = content.stream().mapToDouble(content -> content.getDuration()).sum();

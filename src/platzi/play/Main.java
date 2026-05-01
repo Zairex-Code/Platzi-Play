@@ -1,12 +1,10 @@
 package platzi.play;
 
+import platzi.play.Exception.ExistingMovieException;
 import platzi.play.Platform.Platform;
 import platzi.play.Platform.User;
 import platzi.play.Util.ScannerUtil;
-import platzi.play.content.Genre;
-import platzi.play.content.Language;
-import platzi.play.content.Movie;
-import platzi.play.content.Quality;
+import platzi.play.content.*;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -73,12 +71,19 @@ public class Main {
                     double movieRating = ScannerUtil.getDecimal("Insert rating");
                     List<Language> movieLanguages = ScannerUtil.getLanguages("Insert language");
                     List<Quality> movieQuality = ScannerUtil.getQualities("Insert qualities");
-
+                    try {
                     Movie movie = new Movie(movieTitle, movieDescription, movieGenre, movieRealiseYear, movieDuration, movieRating,movieLanguages,movieQuality);
                     platform.addMovie(movie);
                     System.out.println("Movie added successfully");
+                    }catch (ExistingMovieException e){
+                        System.out.println(e.getMessage());
+                    }
+
                 }
-                case SHOW_CONTENT ->  platform.showTitlesList();
+                case SHOW_CONTENT ->  {
+                    List<ContentSummary> contentSummaryList = platform.getContentSummary();
+                    contentSummaryList.forEach(c -> System.out.println(c));
+                }
                 case SEARCH_BY_TITLE -> {
                     String title = ScannerUtil.getText("Insert the movie name to search: ");
                     Movie movie = platform.searchByTitle(title);
