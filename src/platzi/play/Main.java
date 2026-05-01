@@ -5,6 +5,7 @@ import platzi.play.Platform.User;
 import platzi.play.Util.ScannerUtil;
 import platzi.play.content.Movie;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,10 +19,13 @@ public class Main {
         public static final int SEARCH_BY_TITLE = 3;
         public static final int SEARCH_BY_GENRE = 4;
         public static final int GET_POPULAR_MOVIES = 5;
-        public static final int REMOVE = 6;
-        public static final int REGISTER_NEW_USER = 7;
-        public static final int SHOW_ALL_USERS = 8;
-        public static final int EXIT = 9;
+        public static final int GET_VERY_POPULAR_MOVIES = 6;
+        public static final int GET_LONGER_MOVIE = 7;
+        public static final int GET_SHORTER_MOVIE = 8;
+        public static final int REMOVE = 9;
+        public static final int REGISTER_NEW_USER = 10;
+        public static final int SHOW_ALL_USERS = 11;
+        public static final int EXIT = 12;
 
     static void main(String[] args) {
 
@@ -48,10 +52,12 @@ public class Main {
                     4. Search by Genre
                     5. get popular movies
                     6. get very popular movies
-                    6. Remove
-                    7. Register new user
-                    8. Show all users
-                    9. Exit
+                    7. get longer movie
+                    8. get shorter movie
+                    9. Remove
+                    10. Register new user
+                    11. Show all users
+                    12. Exit
                     Select One option""");
             System.out.println("shose option was : " + shoseOption );
             switch (shoseOption){
@@ -96,6 +102,25 @@ public class Main {
                     } else {
                         System.out.println("Nothing to show");
                     }
+                }
+                case GET_VERY_POPULAR_MOVIES -> {
+                    List<Movie> veryPopularMoviesList = platform.getVeryPopularMovie();
+                    if (!veryPopularMoviesList.isEmpty()) {
+                        System.out.println("Very popular movies: ");
+                        veryPopularMoviesList.forEach(movie -> System.out.println("- " + movie.getTechnicalSpecification()));
+                    } else {
+                        System.out.println("Nothing to show");
+                    }
+                }
+                case GET_LONGER_MOVIE -> {
+                    List<Movie> duratiomMovieList = platform.getLongerMovie();
+                    Movie longerMovie = duratiomMovieList.stream().findFirst().orElse(null);
+                    System.out.println("The longer movie is: " + longerMovie.getTechnicalSpecification() +"\n"+ "and its duration is: " + longerMovie.getDuration() + " min");
+                }
+                case GET_SHORTER_MOVIE -> {
+                    List<Movie> durationMovieList = platform.getShorterMovie();
+                    Movie shorterMovie = durationMovieList.stream().findFirst().orElse(null);
+                    System.out.println("The shorter movie is: " + shorterMovie.getTechnicalSpecification() +"\n"+ "and its duration is: " + shorterMovie.getDuration() + " min" );
                 }
                 case REMOVE -> {
                     String title = ScannerUtil.getText("Insert the movie name to remove: ");

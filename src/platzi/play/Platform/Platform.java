@@ -62,12 +62,19 @@ public class Platform {
     }
 
     // This function orders all movies from higher to lower
-    public List<Movie> getPopularMovies(){
+    public List<Movie> getPopularMovies() {
         return content.stream().sorted(Comparator.comparingDouble(Movie::getRating).reversed()).toList();
     }
 
     public List<Movie> getVeryPopularMovie(){
         return  content.stream().filter(movie -> movie.getRating() > 4).toList();
+    }
+
+    public List<Movie> getLongerMovie(){
+        return content.stream().sorted(Comparator.comparingDouble(Movie::getDuration).reversed()).toList();
+    }
+    public List<Movie> getShorterMovie(){
+        return content.stream().sorted(Comparator.comparingDouble(Movie::getDuration)).toList();
     }
     public Movie searchByTitle(String Title){
 //        for (Movie movie: content){
