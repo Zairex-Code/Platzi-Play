@@ -1,9 +1,13 @@
 package platzi.play.Util;
 
 import platzi.play.content.Genre;
+import platzi.play.content.Language;
+import platzi.play.content.Quality;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ScannerUtil {
@@ -47,8 +51,6 @@ public class ScannerUtil {
         System.out.println("- Insert realise day: ");
         int realiseDay = SCANNER.nextInt();
 
-
-//
         LocalDate localDate = LocalDate.of(reliseYear,realiseMonth,realiseDay);
         System.out.println(localDate);
 
@@ -71,4 +73,62 @@ public class ScannerUtil {
         }
 
     }
+    public static List<Language> getLanguages(String message){
+        boolean keepAsking = true;
+        List<Language> languagesList =new ArrayList<>();
+        while (keepAsking){
+            for (Language language : Language.values()){
+                System.out.println("-" + language);
+            }
+            System.out.println(message+" : ");
+            try {
+            String languageSelected = SCANNER.nextLine().toUpperCase().trim();
+
+            languagesList.add(Language.valueOf(languageSelected));
+                System.out.println("Would you like add another language to this movie? Y/N");
+                String option = SCANNER.nextLine();
+
+            if (!option.equalsIgnoreCase("Y")){
+                keepAsking = false;
+            }
+
+            }catch (Exception e){
+                System.out.println("Invalid language. try again please...");
+            }
+
+
+        }
+        return languagesList;
+    }
+
+    public static List<Quality> getQualities(String message){
+        boolean keepAsking = true;
+        List<Quality> qualityList = new ArrayList<>();
+        while (keepAsking){
+            for (Quality quality : Quality.values()){
+                System.out.println("-" + quality);
+            }
+            System.out.println(message+" : ");
+            try {
+                String qualitySelected = SCANNER.nextLine().toUpperCase().trim();
+
+                qualityList.add(Quality.valueOf(qualitySelected));
+                System.out.println("Would you like add another quality to this movie? Y/N");
+                String option = SCANNER.nextLine();
+
+                if (!option.equalsIgnoreCase("Y")){
+                    keepAsking = false;
+                }
+
+            }catch (Exception e){
+                System.out.println("Invalid quañity. try again please...");
+            }
+
+
+        }
+        return qualityList;
+    }
+
+
+
 }

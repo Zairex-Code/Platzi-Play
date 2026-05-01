@@ -2,6 +2,7 @@ package platzi.play.content;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Movie {
     private String title;
@@ -10,15 +11,20 @@ public class Movie {
     private LocalDate realiseYear;
     private double duration;
     private double rating;
+    private List<Language> languages;
+    private List<Quality> qualities;
     private boolean available;
 
-    public Movie(String title, String description, Genre genre, LocalDate realiseYear, double duration, double rating ){
+
+    public Movie(String title, String description, Genre genre, LocalDate realiseYear,  double duration, double rating, List<Language> languages, List<Quality> qualities ){
         this.title = title;
         this.description = description;
         this.genre = genre;
         this.realiseYear = realiseYear;
         this.duration = duration;
         this.rating = rating;
+        this.languages = languages;
+        this.qualities = qualities;
         this.available = true;
     }
 
@@ -46,6 +52,10 @@ public class Movie {
     public double getRating() {
         return rating;
     }
+
+    public List<Language> getLanguage(){return languages;}
+
+    public List<Quality> getQuality(){return  qualities;}
 
     public boolean isAvailable() {
         return available;
@@ -81,9 +91,29 @@ public class Movie {
 
 
     public String getTechnicalSpecification() {
-        return title + " " +realiseYear.getYear() + "\n" +
-                "Genre: " + genre + "\n" +
-                "Rating: "+rating+"/5";
+        return """
+           ==================================================
+            🎬 %s (%d)
+           ==================================================
+            📌 Genre:     %s
+            ⏱️ Duration:  %.0f min
+            ⭐ Rating:    %.1f / 5.0
+            🗣️ Languages: %s
+            📺 Qualities: %s
+           --------------------------------------------------
+            📝 Synopsis:
+            %s
+           ==================================================
+           """.formatted(
+                title,
+                realiseYear.getYear(),
+                genre,
+                duration,
+                rating,
+                languages,
+                qualities,
+                description
+        );
     }
     public void rate(double rating){
         if (rating>= 0 && rating<=5){
