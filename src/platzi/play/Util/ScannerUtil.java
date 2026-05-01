@@ -1,5 +1,7 @@
 package platzi.play.Util;
 
+import platzi.play.content.Genre;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -51,6 +53,22 @@ public class ScannerUtil {
         System.out.println(localDate);
 
         return localDate;
+
+    }
+    public static Genre getGenre(String message){
+        while (true){
+                System.out.println(message + ": ");
+                for (Genre genre : Genre.values()){
+                    System.out.println("-"+genre);
+                }
+            String option = SCANNER.nextLine();
+            try {
+                return Genre.valueOf(option.toUpperCase());
+            }catch (Exception e){
+                System.out.println("Invalid genre selected.");
+                System.out.println("Select one valid Genre: ");
+            }
+        }
 
     }
 }

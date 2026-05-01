@@ -6,13 +6,13 @@ import java.time.LocalDate;
 public class Movie {
     private String title;
     private String description;
-    private String genre;
+    private Genre genre;
     private LocalDate realiseYear;
     private double duration;
     private double rating;
     private boolean available;
 
-    public Movie(String title, String description, String genre, LocalDate realiseYear, double duration, double rating ){
+    public Movie(String title, String description, Genre genre, LocalDate realiseYear, double duration, double rating ){
         this.title = title;
         this.description = description;
         this.genre = genre;
@@ -31,7 +31,7 @@ public class Movie {
         return description;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre;
     }
 
@@ -59,7 +59,7 @@ public class Movie {
         this.description = description;
     }
 
-    public void setGenere(String genere) {
+    public void setGenere(Genre genere) {
         this.genre = genere;
     }
 

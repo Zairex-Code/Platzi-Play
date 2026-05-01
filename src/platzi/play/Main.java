@@ -3,6 +3,7 @@ package platzi.play;
 import platzi.play.Platform.Platform;
 import platzi.play.Platform.User;
 import platzi.play.Util.ScannerUtil;
+import platzi.play.content.Genre;
 import platzi.play.content.Movie;
 
 import java.time.Duration;
@@ -64,7 +65,7 @@ public class Main {
                 case ADD_CONTENT -> {
                     String movieTitle = ScannerUtil.getText("Insert Title");
                     String movieDescription = ScannerUtil.getText("Insert Description");
-                    String movieGenre = ScannerUtil.getText("Insert genre");
+                    Genre movieGenre = ScannerUtil.getGenre("Insert genre");
                     LocalDate movieRealiseYear = ScannerUtil.getDate("Insert realise date");
                     double movieDuration = ScannerUtil.getDecimal("Insert Duration");
                     double movieRating = ScannerUtil.getDecimal("Insert rating");
@@ -83,7 +84,7 @@ public class Main {
                     }
                 }
                 case SEARCH_BY_GENRE -> {
-                    String genre = ScannerUtil.getText("Insert the movie genre to search: ");
+                    Genre genre = ScannerUtil.getGenre("Insert the movie genre to search: ");
                     List<Movie> movieList = platform.searchByGenre(genre);
                     if (!movieList.isEmpty()) {
                         System.out.println("Movies list with genre: " + genre);
@@ -155,18 +156,17 @@ public class Main {
 
 
     }
-    private static void loadMovies(Platform platform){
-            platform.addMovie(new Movie("Shrek", "Un ogro rescata a una princesa para recuperar su pantano.", "Animada", LocalDate.of(2001, 5, 18), 90.0, 4.2));
-            platform.addMovie(new Movie("Inception", "Un ladrón de sueños busca implantar una idea en un subconsciente.", "Ciencia Ficción", LocalDate.of(2010, 7, 16), 148.0 , 4.6));
-            platform.addMovie(new Movie("Titanic", "Dos jóvenes de distintas clases sociales se enamoran en el famoso barco.", "Drama", LocalDate.of(1997, 12, 19), 195.0 , 3));
-            platform.addMovie(new Movie("John Wick", "Un asesino retirado busca venganza por la muerte de su perro.", "Acción", LocalDate.of(2014, 10, 24), 101.0 , 2));
-            platform.addMovie(new Movie("El Conjuro", "Investigadores paranormales ayudan a una familia en una granja.", "Terror", LocalDate.of(2013, 7, 19), 112.0 , 4.1));
-            platform.addMovie(new Movie("Coco", "Un niño viaja al mundo de los muertos para descubrir su legado.", "Animada", LocalDate.of(2017, 10, 27), 105.0 , 5));
-            platform.addMovie(new Movie("Interstellar", "Exploradores viajan por un agujero de gusano para salvar la humanidad.", "Ciencia Ficción", LocalDate.of(2014, 11, 7), 169.0 , 3.5));
-            platform.addMovie(new Movie("Joker", "Un comediante fallido desciende a la locura en Gotham City.", "Drama", LocalDate.of(2019, 10, 4), 122.0 , 3.6));
-            platform.addMovie(new Movie("Toy Story", "Los juguetes de un niño cobran vida cuando él no está presente.", "Animada", LocalDate.of(1995, 11, 22), 81.0, 4.3));
-            platform.addMovie(new Movie("Avengers: Endgame", "Los héroes intentan revertir el daño causado por Thanos.", "Acción", LocalDate.of(2019, 4, 26), 181.0, 3.8));
-
+    private static void loadMovies(Platform platform) {
+        platform.addMovie(new Movie("Shrek", "An ogre rescues a princess to get his swamp back.", Genre.ANIMATION, LocalDate.of(2001, 5, 18), 90.0, 4.2));
+        platform.addMovie(new Movie("Inception", "A dream thief seeks to plant an idea into a subconscious.", Genre.SCIENCE_FICTION, LocalDate.of(2010, 7, 16), 148.0, 4.6));
+        platform.addMovie(new Movie("Titanic", "Two young people from different social classes fall in love on the famous ship.", Genre.DRAMA, LocalDate.of(1997, 12, 19), 195.0, 3.0));
+        platform.addMovie(new Movie("John Wick", "A retired assassin seeks revenge for the death of his dog.", Genre.ACTION, LocalDate.of(2014, 10, 24), 101.0, 2.0));
+        platform.addMovie(new Movie("The Conjuring", "Paranormal investigators help a family on a farmhouse.", Genre.HORROR, LocalDate.of(2013, 7, 19), 112.0, 4.1));
+        platform.addMovie(new Movie("Coco", "A boy travels to the Land of the Dead to discover his legacy.", Genre.ANIMATION, LocalDate.of(2017, 10, 27), 105.0, 5.0));
+        platform.addMovie(new Movie("Interstellar", "Explorers travel through a wormhole to save humanity.", Genre.SCIENCE_FICTION, LocalDate.of(2014, 11, 7), 169.0, 3.5));
+        platform.addMovie(new Movie("Joker", "A failed comedian descends into madness in Gotham City.", Genre.DRAMA, LocalDate.of(2019, 10, 4), 122.0, 3.6));
+        platform.addMovie(new Movie("Toy Story", "A boy's toys come to life when he is not around.", Genre.ANIMATION, LocalDate.of(1995, 11, 22), 81.0, 4.3));
+        platform.addMovie(new Movie("Avengers: Endgame", "The heroes try to reverse the damage caused by Thanos.", Genre.ACTION, LocalDate.of(2019, 4, 26), 181.0, 3.8));
     }
 
     private static void loadUsers(Platform platform){
