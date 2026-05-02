@@ -197,7 +197,7 @@ public class Main {
     }
     private static void loadMovies(Platform platform) {
         //platform.getContent().addAll(FileUtils.readFile());
-        FileUtils.readFile().forEach(movie -> platform.addMovie(movie));
+        FileUtils.readMoviesFile().forEach(movie -> platform.addMovie(movie));
         System.out.println("Movies loaded");
 
 
@@ -219,16 +219,18 @@ public class Main {
     }
 
     private static void loadUsers(Platform platform){
-        platform.addUser(new User("James", "Miller", 28, "American", "New York", 21255501));
-        platform.addUser(new User("Emily", "Wilson", 34, "British", "London", 20794601));
-        platform.addUser(new User("Oliver", "Brown", 22, "Canadian", "Toronto", 41655502));
-        platform.addUser(new User("Sophie", "Taylor", 45, "Australian", "Sydney", 29212443));
-        platform.addUser(new User("Liam", "Smith", 30, "Irish", "Dublin", 16654321));
-        platform.addUser(new User("Emma", "Johnson", 26, "American", "Los Angeles", 31055503));
-        platform.addUser(new User("Noah", "Davis", 31, "American", "Chicago", 31255504));
-        platform.addUser(new User("Isabella", "White", 29, "British", "Manchester", 16149602));
-        platform.addUser(new User("Lucas", "Anderson", 40, "Canadian", "Vancouver", 60455505));
-        platform.addUser(new User("Mia", "Thompson", 24, "American", "Seattle", 20655506));
+        FileUtils.readUsersFile().forEach(user -> platform.addUser(user));
+        System.out.println("Users all loaded");
+//        platform.addUser(new User("James", "Miller", 28, "American", "New York", 21255501));
+//        platform.addUser(new User("Emily", "Wilson", 34, "British", "London", 20794601));
+//        platform.addUser(new User("Oliver", "Brown", 22, "Canadian", "Toronto", 41655502));
+//        platform.addUser(new User("Sophie", "Taylor", 45, "Australian", "Sydney", 29212443));
+//        platform.addUser(new User("Liam", "Smith", 30, "Irish", "Dublin", 16654321));
+//        platform.addUser(new User("Emma", "Johnson", 26, "American", "Los Angeles", 31055503));
+//        platform.addUser(new User("Noah", "Davis", 31, "American", "Chicago", 31255504));
+//        platform.addUser(new User("Isabella", "White", 29, "British", "Manchester", 16149602));
+//        platform.addUser(new User("Lucas", "Anderson", 40, "Canadian", "Vancouver", 60455505));
+//        platform.addUser(new User("Mia", "Thompson", 24, "American", "Seattle", 20655506));
 
     }
 

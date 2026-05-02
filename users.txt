@@ -1,0 +1,10 @@
+James|Miller|28|American|New York|21255501
+Emily|Wilson|34|British|London|20794601
+Oliver|Brown|22|Canadian|Toronto|41655502
+Sophie|Taylor|45|Australian|Sydney|29212443
+Liam|Smith|30|Irish|Dublin|16654321
+Emma|Johnson|26|American|Los Angeles|31055503
+Noah|Davis|31|American|Chicago|31255504
+Isabella|White|29|British|Manchester|16149602
+Lucas|Anderson|40|Canadian|Vancouver|60455505
+Mia|Thompson|24|American|Seattle|20655506
