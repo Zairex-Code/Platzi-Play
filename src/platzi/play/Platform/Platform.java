@@ -40,8 +40,8 @@ public class Platform {
     public void removeUser(User user){
         this.users.remove(user);
     }
-    public Map<Movie, Integer> getViews() {
-        return views;
+    public int getViews(Movie movie) {
+        return views.getOrDefault(movie, 0);
     }
 
     public void showUsersList(){
@@ -125,8 +125,14 @@ public class Platform {
 
     }
     public void counterViews(Movie movie) {
-        int currentViews = views.getOrDefault(movie, 0);
+        int currentViews = getViews(movie);
         views.put(movie, currentViews + 1);
+    }
+
+    public Movie getMostViewed(){
+        List<Movie> movieList = content.stream().sorted(Comparator.comparingInt(movie -> this.getViews(movie))).toList().reversed();
+        Movie mostViewed = movieList.stream().findFirst().orElse(null);
+        return mostViewed;
     }
 
 }

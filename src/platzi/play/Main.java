@@ -25,9 +25,10 @@ public class Main {
         public static final int GET_SHORTER_MOVIE = 8;
         public static final int REMOVE = 9;
         public static final int PLAY_MOVIE = 10;
-        public static final int REGISTER_NEW_USER = 11;
-        public static final int SHOW_ALL_USERS = 12;
-        public static final int EXIT = 13;
+        public static final int MOST_VIEWED_MOVIE = 11;
+        public static final int REGISTER_NEW_USER = 12;
+        public static final int SHOW_ALL_USERS = 13;
+        public static final int EXIT = 14;
 
     static void main(String[] args) {
 
@@ -58,9 +59,10 @@ public class Main {
                     8. get shorter movie
                     9. Remove
                     10. Play movie
-                    11. Register new user
-                    12. Show all users
-                    13. Exit
+                    11. Most viewed movie
+                    12. Register new user
+                    13. Show all users
+                    14. Exit
                     Select One option""");
             System.out.println("shose option was : " + shoseOption );
             switch (shoseOption){
@@ -153,6 +155,11 @@ public class Main {
                     }
 
 
+                }
+                case MOST_VIEWED_MOVIE -> {
+                    Movie mostViewedMovie =  platform.getMostViewed();
+                    int views = platform.getViews(mostViewedMovie);
+                    System.out.println("The mos viewed movie is " + mostViewedMovie.getTitle() + " With " + views);
                 }
                 case REMOVE -> {
                     String title = ScannerUtil.getText("Insert the movie name to remove: ");
