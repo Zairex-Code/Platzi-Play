@@ -220,7 +220,7 @@ public class Main {
 
     private static void loadUsers(Platform platform){
         FileUtils.readUsersFile().forEach(user -> platform.addUser(user));
-        System.out.println("Users all loaded");
+        System.out.println("all Users are loaded");
 //        platform.addUser(new User("James", "Miller", 28, "American", "New York", 21255501));
 //        platform.addUser(new User("Emily", "Wilson", 34, "British", "London", 20794601));
 //        platform.addUser(new User("Oliver", "Brown", 22, "Canadian", "Toronto", 41655502));
