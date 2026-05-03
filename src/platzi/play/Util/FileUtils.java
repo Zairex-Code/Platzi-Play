@@ -10,9 +10,7 @@ import platzi.play.content.Quality;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,6 +72,28 @@ public class FileUtils {
             System.out.println("Error to read the file " + e.getMessage());
         }
         return UsersFromFile;
+    }
+
+    public static void addMovieToFile(Movie movie){
+        String line = String.join(separator,
+                movie.getTitle(),
+                movie.getDescription(),
+                String.valueOf(movie.getGenre()),
+                String.valueOf(movie.getRealiseYear()),
+                String.valueOf(movie.getDuration()),
+                String.valueOf(movie.getRating()),
+                String.valueOf(movie.getLanguage()),
+                String.valueOf(movie.getQuality())
+        );
+
+        try {
+            Files.writeString(Paths.get(moviesFileName),line + System.lineSeparator(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        }catch (IOException e){
+            System.out.println("Error to open the file" + e.getMessage());
+        }
+
+
+        System.out.println(line);
     }
 }
 // Coco|Aspiring musician Miguel, confronted with his family's ancestral ban on music, enters the Land of the Dead to find his great-great-grandfather.|ANIMATION|2017-11-22|105.0|4.8|ENGLISH,SPANISH|HD_720P,FHD_1080P,UHD_4K

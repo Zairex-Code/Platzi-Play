@@ -1,6 +1,7 @@
 package platzi.play.Platform;
 
 import platzi.play.Exception.ExistingMovieException;
+import platzi.play.Util.FileUtils;
 import platzi.play.content.ContentSummary;
 import platzi.play.content.Genre;
 import platzi.play.content.Movie;
@@ -25,6 +26,7 @@ public class Platform {
         if (searchMovie != null){
             throw new ExistingMovieException(movie.getTitle());
         }else {
+            FileUtils.addMovieToFile(movie);
             this.content.add(movie);
         }
 
