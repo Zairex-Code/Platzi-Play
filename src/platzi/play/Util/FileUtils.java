@@ -1,10 +1,7 @@
 package platzi.play.Util;
 
 import platzi.play.Platform.User;
-import platzi.play.content.Genre;
-import platzi.play.content.Language;
-import platzi.play.content.Content;
-import platzi.play.content.Quality;
+import platzi.play.content.*;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -14,37 +11,49 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FileUtils {
-        public static final String moviesFileName = "movies.txt";
+        public static final String contentFileName = "Content.txt";
         public static final String usersFileName = "users.txt";
         public static final String separator = "|";
-    public static List<Content> readMoviesFile(){
+
+
+    public static List<Content> readContentFile(){
         List<Content> contentFromFile = new ArrayList<>();
         try {
-            List<String> lines = Files.readAllLines(Paths.get(moviesFileName));
+            List<String> lines = Files.readAllLines(Paths.get(contentFileName));
 
             lines.forEach(line -> {
                 String[] data = line.split("\\" + separator);
-                String title = data[0];
-                String description = data[1];
-                Genre genre = Genre.valueOf(data[2]);
-                LocalDate realiseDate = LocalDate.parse(data[3]);
-                double duration = Double.parseDouble(data[4]);
-                double rate = Double.parseDouble(data[5]);
-                // Limpiamos corchetes y espacios antes de hacer el split
-                List<Language> language = Arrays.stream(data[6].replace("[", "").replace("]", "").replace(" ", "").split(","))
-                        .map(Language::valueOf).toList();
-                List<Quality> quality = Arrays.stream(data[7].replace("[", "").replace("]", "").replace(" ", "").split(","))
-                        .map(Quality::valueOf).toList();
+                String contentType = data[0];
 
-                Content content = (new Content(title,description,genre,realiseDate,duration,rate,language,quality));
-                contentFromFile.add(content);
+                if (contentType.equals("MOVIE") || contentType.equals("DOCUMENTAL")){
+                    String title = data[1];
+                    String description = data[2];
+                    Genre genre = Genre.valueOf(data[3]);
+                    LocalDate realiseDate = LocalDate.parse(data[4]);
+                    double duration = Double.parseDouble(data[5]);
+                    double rate = Double.parseDouble(data[6]);
 
+                    // Limpiamos corchetes y espacios antes de hacer el split
+                    List<Language> language = Arrays.stream(data[7].replace("[", "").replace("]", "").replace(" ", "").split(","))
+                            .map(Language::valueOf).toList();
+                    List<Quality> quality = Arrays.stream(data[8].replace("[", "").replace("]", "").replace(" ", "").split(","))
+                            .map(Quality::valueOf).toList();
 
-
+                    // SEPARAMOS LA LÓGICA AQUÍ
+                    if (contentType.equals("MOVIE")){
+                        Content content = new Movie(title,description,genre,realiseDate,duration,rate,language,quality);
+                        contentFromFile.add(content);
+                    } else {
+                        // Solo buscamos data[9] si estamos 100% seguros de que es un documental
+                        String narrator = data[9];
+                        Content content = new Documental(title,description,genre,realiseDate,duration,rate,language,quality,narrator);
+                        contentFromFile.add(content);
+                    }
+                }
             });
 
         }catch (IOException e){
-            System.out.println("Error to read the file" + e.getMessage());
+            System.out.println("Error to read the file " + e.getMessage());
         }
         return contentFromFile;
     }
@@ -85,15 +94,20 @@ public class FileUtils {
                 String.valueOf(content.getLanguage()),
                 String.valueOf(content.getQuality())
         );
+        String finalLine;
+        if (content instanceof Documental documental){
+            finalLine = "DOCUMENTAL" + separator + line + separator + documental.getNarrator();
+        }else {
+            finalLine = "MOVIE" + separator + line + separator ;
+        }
 
         try {
-            Files.writeString(Paths.get(moviesFileName),line + System.lineSeparator(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            Files.writeString(Paths.get(contentFileName),finalLine + System.lineSeparator(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         }catch (IOException e){
             System.out.println("Error to open the file" + e.getMessage());
         }
 
 
-        System.out.println(line);
     }
 }
 // Coco|Aspiring musician Miguel, confronted with his family's ancestral ban on music, enters the Land of the Dead to find his great-great-grandfather.|ANIMATION|2017-11-22|105.0|4.8|ENGLISH,SPANISH|HD_720P,FHD_1080P,UHD_4K

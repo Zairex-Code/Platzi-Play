@@ -27,7 +27,8 @@ public class Main {
         public static final int MOST_VIEWED_MOVIE = 11;
         public static final int REGISTER_NEW_USER = 12;
         public static final int SHOW_ALL_USERS = 13;
-        public static final int EXIT = 14;
+        public static final int SHOW_ALL_MOVIES = 14;
+        public static final int EXIT = 15;
 
     static void main(String[] args) {
 
@@ -42,7 +43,7 @@ public class Main {
 
 
         Platform platform = new Platform(PLATFORM_NAME);
-        loadMovies(platform);
+        loadContent(platform);
         loadUsers(platform);
 
 
@@ -61,7 +62,8 @@ public class Main {
                     11. Most viewed movie
                     12. Register new user
                     13. Show all users
-                    14. Exit
+                    14. Search by type
+                    15. Exit
                     Select One option""");
             System.out.println("shose option was : " + shoseOption );
             switch (shoseOption){
@@ -166,6 +168,19 @@ public class Main {
 
 
                 }
+                case SHOW_ALL_MOVIES -> {
+                    int type = ScannerUtil.getNumber("What type of content would you like to search? \n1.Movie\n2.Documental");
+                    if (type == 1){
+                        List<Movie> movies = platform.getMovies();
+                        movies.forEach(movie -> System.out.println(movie.getTechnicalSpecification()));
+                    } else if (type == 2) {
+                        List<Documental> documentals = platform.getDocumentals();
+                        documentals.forEach(documental -> System.out.println(documental.getTechnicalSpecification()));
+                    }else {
+                        System.out.println("invalid option try again");
+                    }
+                }
+
                 case MOST_VIEWED_MOVIE -> {
                     Content mostViewedContent =  platform.getMostViewed();
                     int views = platform.getViews(mostViewedContent);
@@ -204,9 +219,10 @@ public class Main {
 
 
     }
-    private static void loadMovies(Platform platform) {
-        //platform.getContent().addAll(FileUtils.readFile());
-        FileUtils.readMoviesFile().forEach(content -> platform.addMovie(content));
+    private static void loadContent(Platform platform) {
+        platform.getContent().addAll(FileUtils.readContentFile());
+
+
         System.out.println("Movies loaded");
     }
 

@@ -2,9 +2,7 @@ package platzi.play.Platform;
 
 import platzi.play.Exception.ExistingContentException;
 import platzi.play.Util.FileUtils;
-import platzi.play.content.ContentSummary;
-import platzi.play.content.Genre;
-import platzi.play.content.Content;
+import platzi.play.content.*;
 
 import java.util.*;
 
@@ -134,6 +132,18 @@ public class Platform {
         List<Content> contentList = content.stream().sorted(Comparator.comparingInt(content -> this.getViews(content))).toList().reversed();
         Content mostViewed = contentList.stream().findFirst().orElse(null);
         return mostViewed;
+    }
+
+    public List<Movie> getMovies(){
+        return content.stream()
+                .filter(content -> content instanceof Movie)
+                .map(filererdContent -> (Movie) filererdContent).toList();
+    }
+
+    public  List<Documental> getDocumentals(){
+        return content.stream()
+                .filter(content -> content instanceof Documental)
+                .map(filteredContent -> (Documental) filteredContent).toList();
     }
 
 }
