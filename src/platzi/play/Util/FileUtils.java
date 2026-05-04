@@ -1,15 +1,12 @@
 package platzi.play.Util;
 
-import platzi.play.Platform.Platform;
 import platzi.play.Platform.User;
 import platzi.play.content.Genre;
 import platzi.play.content.Language;
-import platzi.play.content.Movie;
+import platzi.play.content.Content;
 import platzi.play.content.Quality;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,8 +17,8 @@ public class FileUtils {
         public static final String moviesFileName = "movies.txt";
         public static final String usersFileName = "users.txt";
         public static final String separator = "|";
-    public static List<Movie> readMoviesFile(){
-        List<Movie> movieFromFile = new ArrayList<>();
+    public static List<Content> readMoviesFile(){
+        List<Content> contentFromFile = new ArrayList<>();
         try {
             List<String> lines = Files.readAllLines(Paths.get(moviesFileName));
 
@@ -36,8 +33,8 @@ public class FileUtils {
                 List<Language> language = Arrays.stream(data[6].split(",")).map(Language::valueOf).toList();
                 List<Quality> quality = Arrays.stream(data[7].split(",")).map(Quality::valueOf).toList();
 
-                Movie movie = (new Movie(title,description,genre,realiseDate,duration,rate,language,quality));
-                movieFromFile.add(movie);
+                Content content = (new Content(title,description,genre,realiseDate,duration,rate,language,quality));
+                contentFromFile.add(content);
 
 
 
@@ -46,7 +43,7 @@ public class FileUtils {
         }catch (IOException e){
             System.out.println("Error to read the file" + e.getMessage());
         }
-        return movieFromFile;
+        return contentFromFile;
     }
 
     public static List<User> readUsersFile(){
@@ -74,16 +71,16 @@ public class FileUtils {
         return UsersFromFile;
     }
 
-    public static void addMovieToFile(Movie movie){
+    public static void addMovieToFile(Content content){
         String line = String.join(separator,
-                movie.getTitle(),
-                movie.getDescription(),
-                String.valueOf(movie.getGenre()),
-                String.valueOf(movie.getRealiseYear()),
-                String.valueOf(movie.getDuration()),
-                String.valueOf(movie.getRating()),
-                String.valueOf(movie.getLanguage()),
-                String.valueOf(movie.getQuality())
+                content.getTitle(),
+                content.getDescription(),
+                String.valueOf(content.getGenre()),
+                String.valueOf(content.getRealiseYear()),
+                String.valueOf(content.getDuration()),
+                String.valueOf(content.getRating()),
+                String.valueOf(content.getLanguage()),
+                String.valueOf(content.getQuality())
         );
 
         try {

@@ -1,17 +1,14 @@
 package platzi.play;
 
-import platzi.play.Exception.ExistingMovieException;
+import platzi.play.Exception.ExistingContentException;
 import platzi.play.Platform.Platform;
 import platzi.play.Platform.User;
 import platzi.play.Util.FileUtils;
 import platzi.play.Util.ScannerUtil;
 import platzi.play.content.*;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Scanner;
 
 public class Main {
         public static final String PLATFORM_NAME = "Platzi Play 🚀";
@@ -77,10 +74,10 @@ public class Main {
                     List<Language> movieLanguages = ScannerUtil.getLanguages("Insert language");
                     List<Quality> movieQuality = ScannerUtil.getQualities("Insert qualities");
                     try {
-                    Movie movie = new Movie(movieTitle, movieDescription, movieGenre, movieRealiseYear, movieDuration, movieRating,movieLanguages,movieQuality);
-                    platform.addMovie(movie);
+                    Content content = new Content(movieTitle, movieDescription, movieGenre, movieRealiseYear, movieDuration, movieRating,movieLanguages,movieQuality);
+                    platform.addMovie(content);
                     System.out.println("Movie added successfully");
-                    }catch (ExistingMovieException e){
+                    }catch (ExistingContentException e){
                         System.out.println(e.getMessage());
                     }
 
@@ -91,19 +88,19 @@ public class Main {
                 }
                 case SEARCH_BY_TITLE -> {
                     String title = ScannerUtil.getText("Insert the movie name to search: ");
-                    Movie movie = platform.searchByTitle(title);
-                    if (movie != null){
-                        System.out.println(movie.getTechnicalSpecification());
+                    Content content = platform.searchByTitle(title);
+                    if (content != null){
+                        System.out.println(content.getTechnicalSpecification());
                     }else{
                         System.out.println("Movie doesnt found");
                     }
                 }
                 case SEARCH_BY_GENRE -> {
                     Genre genre = ScannerUtil.getGenre("Insert the movie genre to search: ");
-                    List<Movie> movieList = platform.searchByGenre(genre);
-                    if (!movieList.isEmpty()) {
+                    List<Content> contentList = platform.searchByGenre(genre);
+                    if (!contentList.isEmpty()) {
                         System.out.println("Movies list with genre: " + genre);
-                        movieList.forEach(movie -> System.out.println("- " + movie.getTechnicalSpecification()));
+                        contentList.forEach(content -> System.out.println("- " + content.getTechnicalSpecification()));
                     } else {
                         System.out.println("No movies found with genre: " + genre);
                     }
@@ -111,32 +108,32 @@ public class Main {
                 }
                 case GET_POPULAR_MOVIES -> {
 
-                    List<Movie> popularMoviesList = platform.getPopularMovies();
+                    List<Content> popularMoviesList = platform.getPopularMovies();
                     if (!popularMoviesList.isEmpty()) {
                         System.out.println("Popular movies: ");
-                        popularMoviesList.forEach(movie -> System.out.println("- " + movie.getTechnicalSpecification()));
+                        popularMoviesList.forEach(content -> System.out.println("- " + content.getTechnicalSpecification()));
                     } else {
                         System.out.println("Nothing to show");
                     }
                 }
                 case GET_VERY_POPULAR_MOVIES -> {
-                    List<Movie> veryPopularMoviesList = platform.getVeryPopularMovie();
+                    List<Content> veryPopularMoviesList = platform.getVeryPopularMovie();
                     if (!veryPopularMoviesList.isEmpty()) {
                         System.out.println("Very popular movies: ");
-                        veryPopularMoviesList.forEach(movie -> System.out.println("- " + movie.getTechnicalSpecification()));
+                        veryPopularMoviesList.forEach(content -> System.out.println("- " + content.getTechnicalSpecification()));
                     } else {
                         System.out.println("Nothing to show");
                     }
                 }
                 case GET_LONGER_MOVIE -> {
-                    List<Movie> duratiomMovieList = platform.getLongerMovie();
-                    Movie longerMovie = duratiomMovieList.stream().findFirst().orElse(null);
-                    System.out.println("The longer movie is: " + longerMovie.getTechnicalSpecification() +"\n"+ "and its duration is: " + longerMovie.getDuration() + " min");
+                    List<Content> duratiomContentList = platform.getLongerMovie();
+                    Content longerContent = duratiomContentList.stream().findFirst().orElse(null);
+                    System.out.println("The longer movie is: " + longerContent.getTechnicalSpecification() +"\n"+ "and its duration is: " + longerContent.getDuration() + " min");
                 }
                 case GET_SHORTER_MOVIE -> {
-                    List<Movie> durationMovieList = platform.getShorterMovie();
-                    Movie shorterMovie = durationMovieList.stream().findFirst().orElse(null);
-                    System.out.println("The shorter movie is: " + shorterMovie.getTechnicalSpecification() +"\n"+ "and its duration is: " + shorterMovie.getDuration() + " min" );
+                    List<Content> durationContentList = platform.getShorterMovie();
+                    Content shorterContent = durationContentList.stream().findFirst().orElse(null);
+                    System.out.println("The shorter movie is: " + shorterContent.getTechnicalSpecification() +"\n"+ "and its duration is: " + shorterContent.getDuration() + " min" );
                 }
                 case PLAY_MOVIE -> {
                     boolean keepAsking = true;
@@ -145,9 +142,9 @@ public class Main {
                         List<ContentSummary> contentSummaryList = platform.getContentSummary();
                         contentSummaryList.forEach(movie -> System.out.println("- "+movie.title()));
                         String movieSelected = ScannerUtil.getText("Insert the movie title that you would like to play");
-                        Movie movie = platform.searchByTitle(movieSelected.trim());
-                        if (movie != null){
-                            platform.playing(movie);
+                        Content content = platform.searchByTitle(movieSelected.trim());
+                        if (content != null){
+                            platform.playing(content);
                             keepAsking = false;
                         }else {
                             System.out.println("Movie doesn't found ");
@@ -158,17 +155,17 @@ public class Main {
 
                 }
                 case MOST_VIEWED_MOVIE -> {
-                    Movie mostViewedMovie =  platform.getMostViewed();
-                    int views = platform.getViews(mostViewedMovie);
-                    System.out.println("The mos viewed movie is " + mostViewedMovie.getTitle() + " With " + views);
+                    Content mostViewedContent =  platform.getMostViewed();
+                    int views = platform.getViews(mostViewedContent);
+                    System.out.println("The mos viewed movie is " + mostViewedContent.getTitle() + " With " + views);
                 }
                 case REMOVE -> {
                     String title = ScannerUtil.getText("Insert the movie name to remove: ");
-                    Movie movie = platform.searchByTitle(title);
-                    if (movie != null){
+                    Content content = platform.searchByTitle(title);
+                    if (content != null){
                         String option = ScannerUtil.getText("Are you sure that you want to remove this movie? Y/N :");
                         if (option.equalsIgnoreCase("y")) {
-                            platform.removeMovie(movie);
+                            platform.removeMovie(content);
                             System.out.println("Movie removed successfully");
                         }
                     }else{
@@ -197,7 +194,7 @@ public class Main {
     }
     private static void loadMovies(Platform platform) {
         //platform.getContent().addAll(FileUtils.readFile());
-        FileUtils.readMoviesFile().forEach(movie -> platform.addMovie(movie));
+        FileUtils.readMoviesFile().forEach(content -> platform.addMovie(content));
         System.out.println("Movies loaded");
 
 

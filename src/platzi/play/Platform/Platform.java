@@ -1,18 +1,18 @@
 package platzi.play.Platform;
 
-import platzi.play.Exception.ExistingMovieException;
+import platzi.play.Exception.ExistingContentException;
 import platzi.play.Util.FileUtils;
 import platzi.play.content.ContentSummary;
 import platzi.play.content.Genre;
-import platzi.play.content.Movie;
+import platzi.play.content.Content;
 
 import java.util.*;
 
 public class Platform {
     private String platformName;
-    private List<Movie> content;
+    private List<Content> content;
     private List<User> users;
-    private Map<Movie,Integer> views;
+    private Map<Content,Integer> views;
 
 
     public Platform(String platformName){
@@ -21,29 +21,28 @@ public class Platform {
         this.users = new ArrayList<>();
         this.views = new HashMap<>();
     }
-    public void addMovie(Movie movie){
-        Movie searchMovie = this.searchByTitle(movie.getTitle());
-        if (searchMovie != null){
-            throw new ExistingMovieException(movie.getTitle());
+    public void addMovie(Content content){
+        Content searchContent = this.searchByTitle(content.getTitle());
+        if (searchContent != null){
+            throw new ExistingContentException(content.getTitle());
         }else {
-            FileUtils.addMovieToFile(movie);
-            this.content.add(movie);
+            FileUtils.addMovieToFile(content);
+            this.content.add(content);
         }
 
 
     }
-    public void removeMovie(Movie movie){
-        this.content.remove(movie);
+    public void removeMovie(Content content){
+        this.content.remove(content);
     }
     public void addUser(User user){
-
         this.users.add(user);
     }
     public void removeUser(User user){
         this.users.remove(user);
     }
-    public int getViews(Movie movie) {
-        return views.getOrDefault(movie, 0);
+    public int getViews(Content content) {
+        return views.getOrDefault(content, 0);
     }
 
     public void showUsersList(){
@@ -59,7 +58,7 @@ public class Platform {
     public String getName(){
         return platformName;
     }
-    public List<Movie> getContent(){
+    public List<Content> getContent(){
         return this.content;
     }
 
@@ -68,15 +67,15 @@ public class Platform {
 
         System.out.println("All Movies availables: ");
 
-        for (Movie movie : content) {
+        for (Content content : this.content) {
            ++counter;
-           System.out.println(counter+". "+movie.getTitle());
+           System.out.println(counter+". "+ content.getTitle());
       }
     }
 
     public List<ContentSummary> getContentSummary(){
         return content.stream()
-                .map(movie ->new ContentSummary(movie.getTitle(),movie.getDuration(), movie.getGenre()))
+                .map(content ->new ContentSummary(content.getTitle(), content.getDuration(), content.getGenre()))
                 .toList();
     }
     public void getTotalDuration(){
@@ -85,21 +84,21 @@ public class Platform {
     }
 
     // This function orders all movies from higher to lower
-    public List<Movie> getPopularMovies() {
-        return content.stream().sorted(Comparator.comparingDouble(Movie::getRating).reversed()).toList();
+    public List<Content> getPopularMovies() {
+        return content.stream().sorted(Comparator.comparingDouble(Content::getRating).reversed()).toList();
     }
 
-    public List<Movie> getVeryPopularMovie(){
-        return  content.stream().filter(movie -> movie.getRating() > 4).toList();
+    public List<Content> getVeryPopularMovie(){
+        return  content.stream().filter(content -> content.getRating() > 4).toList();
     }
 
-    public List<Movie> getLongerMovie(){
-        return content.stream().sorted(Comparator.comparingDouble(Movie::getDuration).reversed()).toList();
+    public List<Content> getLongerMovie(){
+        return content.stream().sorted(Comparator.comparingDouble(Content::getDuration).reversed()).toList();
     }
-    public List<Movie> getShorterMovie(){
-        return content.stream().sorted(Comparator.comparingDouble(Movie::getDuration)).toList();
+    public List<Content> getShorterMovie(){
+        return content.stream().sorted(Comparator.comparingDouble(Content::getDuration)).toList();
     }
-    public Movie searchByTitle(String Title){
+    public Content searchByTitle(String Title){
 //        for (Movie movie: content){
 //            if (movie.getTitle().equalsIgnoreCase(Title)){
 //                return movie;
@@ -113,27 +112,27 @@ public class Platform {
                 .orElse(null);
 
     }
-    public List<Movie> searchByGenre(Genre genre){
+    public List<Content> searchByGenre(Genre genre){
         return content.stream().
-                filter(movie -> movie.getGenre().equals(genre))
+                filter(content -> content.getGenre().equals(genre))
                 .toList();
     }
-    public void playing(Movie movie){
-        int currentViews = views.getOrDefault(movie, 0);
-        System.out.println(movie.getTitle() + " has been played " + currentViews + " times");
-        this.counterViews(movie);
-        movie.play();
+    public void playing(Content content){
+        int currentViews = views.getOrDefault(content, 0);
+        System.out.println(content.getTitle() + " has been played " + currentViews + " times");
+        this.counterViews(content);
+        content.play();
 
 
     }
-    public void counterViews(Movie movie) {
-        int currentViews = getViews(movie);
-        views.put(movie, currentViews + 1);
+    public void counterViews(Content content) {
+        int currentViews = getViews(content);
+        views.put(content, currentViews + 1);
     }
 
-    public Movie getMostViewed(){
-        List<Movie> movieList = content.stream().sorted(Comparator.comparingInt(movie -> this.getViews(movie))).toList().reversed();
-        Movie mostViewed = movieList.stream().findFirst().orElse(null);
+    public Content getMostViewed(){
+        List<Content> contentList = content.stream().sorted(Comparator.comparingInt(content -> this.getViews(content))).toList().reversed();
+        Content mostViewed = contentList.stream().findFirst().orElse(null);
         return mostViewed;
     }
 

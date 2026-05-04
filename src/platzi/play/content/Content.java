@@ -4,7 +4,7 @@ package platzi.play.content;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Movie {
+public class Content {
     private String title;
     private String description;
     private Genre genre;
@@ -16,7 +16,7 @@ public class Movie {
     private boolean available;
 
 
-    public Movie(String title, String description, Genre genre, LocalDate realiseYear,  double duration, double rating, List<Language> languages, List<Quality> qualities ){
+    public Content(String title, String description, Genre genre, LocalDate realiseYear, double duration, double rating, List<Language> languages, List<Quality> qualities ){
         this.title = title;
         this.description = description;
         this.genre = genre;
