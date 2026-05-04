@@ -30,8 +30,11 @@ public class FileUtils {
                 LocalDate realiseDate = LocalDate.parse(data[3]);
                 double duration = Double.parseDouble(data[4]);
                 double rate = Double.parseDouble(data[5]);
-                List<Language> language = Arrays.stream(data[6].split(",")).map(Language::valueOf).toList();
-                List<Quality> quality = Arrays.stream(data[7].split(",")).map(Quality::valueOf).toList();
+                // Limpiamos corchetes y espacios antes de hacer el split
+                List<Language> language = Arrays.stream(data[6].replace("[", "").replace("]", "").replace(" ", "").split(","))
+                        .map(Language::valueOf).toList();
+                List<Quality> quality = Arrays.stream(data[7].replace("[", "").replace("]", "").replace(" ", "").split(","))
+                        .map(Quality::valueOf).toList();
 
                 Content content = (new Content(title,description,genre,realiseDate,duration,rate,language,quality));
                 contentFromFile.add(content);
