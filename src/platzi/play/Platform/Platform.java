@@ -121,7 +121,6 @@ public class Platform {
         this.counterViews(content);
         content.play();
 
-
     }
     public void counterViews(Content content) {
         int currentViews = getViews(content);

@@ -4,7 +4,7 @@ package platzi.play.content;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Content {
+public abstract class  Content {
     private String title;
     private String description;
     private Genre genre;
@@ -84,9 +84,7 @@ public class Content {
 
 
     // Methods
-    public void play(){
-        System.out.println("playing..." + title);
-    }
+    public abstract void play();
 
 
 

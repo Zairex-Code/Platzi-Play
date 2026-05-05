@@ -8,5 +8,10 @@ public class Movie extends Content {
         super(title, description, genre, realiseYear, duration, rating, languages, qualities);
     }
 
+    @Override
+    public void play() {
+        System.out.println("Playing... " + getTitle());
+    }
+
 
 }
