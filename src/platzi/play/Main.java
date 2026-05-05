@@ -45,6 +45,7 @@ public class Main {
         Platform platform = new Platform(PLATFORM_NAME);
         loadContent(platform);
         loadUsers(platform);
+        platform.getPromotionalContent().forEach(promotional -> System.out.println(promotional.promote()));
 
 
         while (true){

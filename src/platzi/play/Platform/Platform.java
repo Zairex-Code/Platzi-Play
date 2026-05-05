@@ -145,4 +145,8 @@ public class Platform {
                 .map(filteredContent -> (Documental) filteredContent).toList();
     }
 
+    public List<Promotional> getPromotionalContent(){
+        return content.stream().filter(promotional -> promotional instanceof Promotional).map(promotional -> (Promotional) promotional).toList();
+    }
+
 }
